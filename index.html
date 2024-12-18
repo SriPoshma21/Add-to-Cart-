@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="cards.css">
+</head>
+<body>
+   <!---------------------------Body--------------------------------->
+    <h1 id="heading">StoRe_WherE EverYThingG_AvaiLable</h1>
+
+    <button id="cart" onclick="cart()">CART</button>
+    <script>
+        /////////////--------script-------------------///////////
+        let storedata=[]
+        async function getdata() {
+            let response = await fetch("https://fakestoreapi.com/products");
+            let val = await response.json();
+            console.log(val); /// it stores all data
+
+            // Creating a container div                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+            let containerdiv = document.createElement("div");
+            containerdiv.setAttribute("class", "container");
+
+            // Mapping  the data to create cards for each item
+            val.map((product) => {
+                let carddiv = document.createElement("div");
+                carddiv.setAttribute("class", "cardiv");
+                
+                carddiv.innerHTML = `<h2>${product.title}</h2>
+                                     <img src="${product.image}" width="100px" style="margin-left:90px"><br><br>
+                                     <strong>Price:</strong> ${product.price}<br><br>
+                                     <strong>Category:</strong> ${product.category}<br><br>
+                                     <strong>Rating:</strong> ${product.rating.rate}<br><br>
+                                     <strong>Description:</strong> ${product.description}<br><br>`;
+                
+                let btn = document.createElement("button");
+                btn.innerText="Add To Cart"
+                carddiv.append(btn);
+                
+                btn.addEventListener("click", () => {
+                    storedata.push(product)
+                   localStorage.setItem("shoppingdata",JSON.stringify(storedata))
+                });
+                
+                containerdiv.appendChild(carddiv);
+                document.body.appendChild(containerdiv);
+                console.log(storedata)
+            });
+
+
+        }
+        getdata();
+        function cart(){
+            window.open("cart.html", "_self")
+        }
+    </script>
+</body>
+</html>

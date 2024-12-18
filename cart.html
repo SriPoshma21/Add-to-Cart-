@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link rel="stylesheet" href="cards.css">
+    <style>
+        #bag{
+            margin: 40px;
+            text-align: center;
+            background-color: #003366 ;
+            color: white;
+            border-radius: 10px;
+            width: 150px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+   <h3 id="bag">Shopping bag</h3>
+    <script>
+        vardiv=document.querySelector("div")
+         var shopdata=JSON.parse(localStorage.getItem("shoppingdata"));
+         console.log(shopdata);
+         let containerdiv = document.createElement("div");
+         containerdiv.setAttribute("class", "container");
+
+         let data=shopdata.map((val)=>{
+            let carddiv = document.createElement("div");
+                carddiv.setAttribute("class", "cardiv");
+                
+                carddiv.innerHTML = `<h2>${val.title}</h2>
+                                     <img src="${val.image}" width="100px" style="margin-left:90px"><br><br>
+                                     <strong>Price:</strong> ${val.price}<br><br>
+                                     <strong>Category:</strong> ${val.category}<br><br>
+                                     <strong>Rating:</strong> ${val.rating.rate}<br><br>
+                                     <strong>Description:</strong> ${val.description}<br><br>`;
+                
+                let btn = document.createElement("button");
+                btn.innerText="remove"
+                carddiv.append(btn);
+                
+                btn.addEventListener("click", () => {
+                    carddiv.style.display="none"
+                });
+                
+                containerdiv.appendChild(carddiv);
+                document.body.appendChild(containerdiv);
+         })
+         
+    </script>
+</body>
+</html>
